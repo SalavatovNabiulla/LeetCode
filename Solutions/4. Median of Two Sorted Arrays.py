@@ -1,34 +1,18 @@
 class Solution:
 
     def merge_arrays(self,l1: list,l2: list):
+        temp = l1.copy()
         for i in l2:
-            l1.append(i)
-        return l1
+            temp.append(i)
+        return temp
 
     def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
-        answer: float = 0
         merged_array = sorted(self.merge_arrays(nums1,nums2))
-        if len(merged_array) > 2:
-            summ = 0
-            for i in range(1,len(merged_array)-1):
-                summ = summ+merged_array[i]
-            answer = summ/(len(merged_array)-2)
-            if str(answer - int(answer))[2] != "5":
-                answer = float(int(answer))
-        elif len(merged_array) == 2:
-            summ = 0
-            for i in range(0,len(merged_array)):
-                summ = summ+merged_array[i]
-            answer = summ/len(merged_array)
-        elif len(merged_array) == 1:
-            return float(merged_array[0])
-        elif len(merged_array) == 0:
-            return float(0)
-
+        if (len(merged_array) % 2):
+            answer = merged_array[len(merged_array)//2]
+        else:
+            answer = (merged_array[len(merged_array)//2] + merged_array[(len(merged_array)//2)-1])/2
         return answer
 
 obj = Solution()
-print(obj.findMedianSortedArrays([],[-3,-2,-1,1,5]))
-#Input: nums1 = [1,2], nums2 = [3,4]
-#Output: 2.50000
-#Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+print(obj.findMedianSortedArrays([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],[0,6]))
